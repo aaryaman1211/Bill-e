@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <p id="greeting" class="eyebrow" hidden></p>
+  <h1>Split the bill by what you <em>actually</em> ate.</h1>
+  <p class="lede">Snap the bill, everyone ticks their dishes, and Bill-e works out exactly who owes what, tax and service charge included. No calculator.</p>
+</section>
+
+<section id="my-bills" class="card" hidden>
+  <h2>My bills</h2>
+  <ul id="my-bills-list" class="bill-list"></ul>
+  <p id="my-bills-empty" class="muted small" hidden>Bills you start or join will show up here, on any device.</p>
+</section>
+
+<section class="card" aria-labelledby="start-heading">
+  <h2 id="start-heading">Start a bill</h2>
+  <form id="create-form" class="stack">
+    <label class="field" data-name-field>
+      <span>Your name</span>
+      <input name="name" autocomplete="given-name" maxlength="30" required placeholder="e.g. Aaryaman">
+    </label>
+    <label class="field">
+      <span>What's it for? <small>(optional)</small></span>
+      <input name="title" maxlength="60" placeholder="e.g. Friday dinner">
+    </label>
+    <button class="btn btn-primary" type="submit">Start splitting</button>
+  </form>
+</section>
+
+<section class="card" aria-labelledby="join-heading">
+  <h2 id="join-heading">Join a bill</h2>
+  <form id="join-form" class="stack">
+    <label class="field">
+      <span>Bill code</span>
+      <input name="code" class="code-input" autocomplete="off" autocapitalize="characters" spellcheck="false"
+             maxlength="6" minlength="6" required placeholder="ABC123">
+    </label>
+    <label class="field" data-name-field>
+      <span>Your name</span>
+      <input name="name" autocomplete="given-name" maxlength="30" required placeholder="e.g. Riya">
+    </label>
+    <button class="btn" type="submit">Join</button>
+  </form>
+</section>
+
+<section id="recent" class="card" hidden>
+  <h2>Recent bills on this device</h2>
+  <ul id="recent-list" class="link-list"></ul>
+  <p class="muted small"><a href="/login">Sign in</a> to see your bills on any device.</p>
+</section>
+
+<section class="card how">
+  <h2>How it works</h2>
+  <ol>
+    <li><strong>Scan the bill.</strong> Azure AI reads every dish and price from a photo.</li>
+    <li><strong>Share the code.</strong> Friends join on their phones, or you add them and pick for them.</li>
+    <li><strong>Tick what you ate.</strong> Shared dishes split automatically between whoever ticked them.</li>
+    <li><strong>Pay exactly your share.</strong> GST and service charge are split equally between everyone who ate.</li>
+  </ol>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}

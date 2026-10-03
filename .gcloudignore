@@ -1,0 +1,13 @@
+# Files never uploaded to Cloud Build (secrets, local env, tests).
+.gcloudignore
+.git
+.gitignore
+.env
+*firebase-adminsdk*.json
+.venv/
+__pycache__/
+.pytest_cache/
+tests/
+.DS_Store
+*.docx
+*.pdf

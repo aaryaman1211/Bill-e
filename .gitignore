@@ -1,0 +1,9 @@
+.env
+*firebase-adminsdk*.json
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+*.docx
+*.pdf
+.pytest_cache/

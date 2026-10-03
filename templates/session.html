@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Bill {{ code }} · Bill-e{% endblock %}
+{% block body_attrs %}data-code="{{ code }}"{% endblock %}
+
+{% block topbar %}
+<button id="share-button" class="code-chip" type="button" aria-label="Share bill code {{ code }}">
+  <span>{{ code }}</span>
+  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1Z"/></svg>
+</button>
+{% endblock %}
+
+{% block content %}
+<div id="loading" class="center-state"><div class="spinner"></div><p>Loading bill…</p></div>
+
+<div id="missing" class="center-state" hidden>
+  <h1>Bill not found</h1>
+  <p id="missing-text">The code <strong>{{ code }}</strong> doesn't match any bill. It may have expired or been deleted.</p>
+  <a class="btn btn-primary" href="/">Back home</a>
+</div>
+
+<!-- Shown until this browser has joined the bill -->
+<section id="join-view" class="card" hidden>
+  <p class="eyebrow">You're invited to split</p>
+  <h1 id="join-title"></h1>
+  <p id="join-people" class="muted"></p>
+  <form id="join-form" class="stack">
+    <label class="field">
+      <span>Your name</span>
+      <input name="name" autocomplete="given-name" maxlength="30" required placeholder="e.g. Riya">
+    </label>
+    <button class="btn btn-primary" type="submit">Join bill</button>
+  </form>
+</section>
+
+<div id="bill-view" hidden>
+  <section class="bill-head">
+    <h1 id="bill-title"></h1>
+    <p id="bill-subtitle" class="muted"></p>
+  </section>
+
+  <div id="final-banner" class="banner" hidden></div>
+
+  <section id="me-card" class="me-card" aria-live="polite"></section>
+
+  <section id="host-tools" class="toolbar" hidden>
+    <label class="btn btn-primary" id="scan-label">
+      <input id="scan-input" type="file" accept="image/*" hidden>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9Zm3 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+      Scan bill
+    </label>
+    <button id="edit-toggle" class="btn" type="button" aria-pressed="false">Edit items</button>
+    <button id="final-toggle" class="btn" type="button">Finalise</button>
+    <button id="delete-bill" class="btn btn-danger" type="button">Delete bill</button>
+  </section>
+
+  <section class="section" aria-labelledby="people-heading">
+    <div class="section-head">
+      <h2 id="people-heading">People</h2>
+      <button id="add-person-toggle" class="link-button" type="button">+ Add someone</button>
+    </div>
+    <form id="add-person-form" class="inline-form" hidden>
+      <input name="name" maxlength="30" required placeholder="Their name" aria-label="Their name">
+      <button class="btn btn-primary btn-small" type="submit">Add</button>
+    </form>
+    <p id="add-person-hint" class="hint" hidden>For friends not using the app — you can tick their dishes for them.</p>
+    <ul id="people-list" class="people"></ul>
+  </section>
+
+  <section class="section" aria-labelledby="items-heading">
+    <div class="section-head">
+      <h2 id="items-heading">Items</h2>
+      <span id="items-count" class="muted small"></span>
+    </div>
+    <div id="picker" class="picker" hidden></div>
+    <ul id="item-list" class="items"></ul>
+    <div id="editor" hidden></div>
+    <div id="items-empty" class="empty" hidden></div>
+  </section>
+
+  <section id="charges-section" class="section" aria-labelledby="charges-heading" hidden>
+    <div class="section-head"><h2 id="charges-heading">Tax &amp; charges</h2></div>
+    <ul id="charge-list" class="charges"></ul>
+    <p class="hint">Split equally between everyone who ate.</p>
+  </section>
+
+  <section class="section" aria-labelledby="summary-heading">
+    <div class="section-head"><h2 id="summary-heading">Who pays what</h2></div>
+    <div id="warnings"></div>
+    <ul id="summary-list" class="summary"></ul>
+    <dl id="totals" class="totals"></dl>
+  </section>
+</div>
+
+<dialog id="share-dialog" class="dialog">
+  <h2>Invite to this bill</h2>
+  <p class="muted">Scan the QR code or enter the code on the Bill-e home page.</p>
+  <div id="qr" class="qr"></div>
+  <p class="big-code">{{ code }}</p>
+  <div class="dialog-actions">
+    <button id="copy-link" class="btn" type="button">Copy link</button>
+    <button id="native-share" class="btn btn-primary" type="button" hidden>Share…</button>
+  </div>
+  <form method="dialog"><button class="link-button">Close</button></form>
+</dialog>
+
+<div id="busy" class="busy" hidden><div class="spinner"></div><p id="busy-text"></p></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+<script type="module" src="{{ url_for('static', filename='js/session.js') }}"></script>
+{% endblock %}

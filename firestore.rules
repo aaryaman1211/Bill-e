@@ -1,0 +1,13 @@
+rules_version = '2';
+
+// Browsers may only *read* a bill (for live updates). All changes go through
+// the Bill-e server, which uses the Admin SDK and so bypasses these rules.
+// Everything else - including sessions/{code}/private/auth - is denied.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /sessions/{code} {
+      allow get: if true;
+      allow list, write: if false;
+    }
+  }
+}

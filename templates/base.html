@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#d9d3c5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111010" media="(prefers-color-scheme: dark)">
+  <title>{% block title %}Bill-e{% endblock %}</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='icons/favicon-64.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/apple-touch-icon.png') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bill-e">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <script>
+    try {
+      if (!sessionStorage.getItem("bill-e:splash")) {
+        document.documentElement.classList.add("intro");
+        sessionStorage.setItem("bill-e:splash", "1");
+      }
+    } catch (e) { /* storage blocked: just skip the splash */ }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body {% block body_attrs %}{% endblock %}>
+  <div id="splash" class="splash" aria-hidden="true">
+    <img src="{{ url_for('static', filename='icons/logo-256.png') }}" alt="" width="128" height="128">
+    <span>Bill-e</span>
+  </div>
+  <header class="topbar">
+    <a class="logo" href="/"><img class="logo-mark" src="{{ url_for('static', filename='icons/logo-96.png') }}" alt="" width="34" height="34">Bill-e</a>
+    <div class="topbar-right">
+      {% block topbar %}{% endblock %}
+      <div id="account" class="account"></div>
+    </div>
+  </header>
+  <main class="page">
+    {% block content %}{% endblock %}
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script>
+    // The splash plays once per visit; afterwards drop the class so later re-renders don't wait for it.
+    setTimeout(function () { document.documentElement.classList.remove("intro"); }, 2800);
+  </script>
+  <script type="module" src="{{ url_for('static', filename='js/account.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

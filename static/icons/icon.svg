@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#1d1b17"/>
+  <g transform="translate(256 256) scale(0.94) rotate(-12) translate(-256 -256)">
+    <path d="M146 84 H366 V398 L347.7 424 L329.3 398 L311.0 424 L292.7 398 L274.3 424 L256.0 398 L237.7 424 L219.3 398 L201.0 424 L182.7 398 L164.3 424 L146.0 398 Z" transform="translate(10 14)" fill="#000" opacity="0.35"/>
+    <path d="M146 84 H366 V398 L347.7 424 L329.3 398 L311.0 424 L292.7 398 L274.3 424 L256.0 398 L237.7 424 L219.3 398 L201.0 424 L182.7 398 L164.3 424 L146.0 398 Z" fill="#fffdf6"/>
+    <rect x="164" y="128" width="184" height="30" rx="4" fill="#ffe97a"/>
+    <text x="256" y="152" text-anchor="middle" font-family="Menlo, 'SF Mono', 'Courier New', monospace"
+          font-weight="bold" font-size="50" letter-spacing="1" fill="#1d1b17">BILL-E</text>
+    <path d="M176 192 H336" stroke="#c7bfad" stroke-width="5" stroke-dasharray="10 9" stroke-linecap="round"/>
+    <path d="M180 236 q20 -14 40 0 t40 0 t40 0 t36 0" fill="none" stroke="#6b665c" stroke-width="11" stroke-linecap="round"/>
+    <path d="M180 280 q20 -14 40 0 t40 0 t40 0" fill="none" stroke="#6b665c" stroke-width="11" stroke-linecap="round"/>
+    <path d="M180 324 q20 -14 40 0 t40 0" fill="none" stroke="#6b665c" stroke-width="11" stroke-linecap="round"/>
+    <text x="336" y="372" text-anchor="end" font-family="Menlo, 'SF Mono', 'Courier New', monospace"
+          font-weight="bold" font-size="34" fill="#c6372b">₹</text>
+  </g>
+</svg>
